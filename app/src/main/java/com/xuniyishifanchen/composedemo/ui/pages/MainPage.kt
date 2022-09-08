@@ -13,17 +13,20 @@ import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.xuniyishifanchen.composedemo.model.NavigationItem
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun MainPage() {
+
     val navigationItems = listOf(
         NavigationItem("学习", Icons.Filled.Home),
         NavigationItem("任务", Icons.Filled.DateRange),
@@ -31,6 +34,11 @@ fun MainPage() {
     )
     var currentNavigationIndex by remember {
         mutableStateOf(0)
+    }
+
+    val systemUiController = rememberSystemUiController()
+    LaunchedEffect(key1 = Unit) {
+        systemUiController.setSystemBarsColor(Color.Transparent)
     }
     Scaffold(bottomBar = {
         BottomNavigation(
