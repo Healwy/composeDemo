@@ -25,9 +25,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.xuniyishifanchen.composedemo.ui.MainViewModel
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.xuniyishifanchen.composedemo.ui.components.SwipeContent
 import com.xuniyishifanchen.composedemo.ui.components.TopAppBar
+import com.xuniyishifanchen.composedemo.viewmodel.MainViewModel
 
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun StudyPage(vm: MainViewModel = viewModel()) {
     Column() {
@@ -112,6 +115,7 @@ fun StudyPage(vm: MainViewModel = viewModel()) {
                 )
             }
         }
+        SwipeContent(vm)
     }
 }
 
