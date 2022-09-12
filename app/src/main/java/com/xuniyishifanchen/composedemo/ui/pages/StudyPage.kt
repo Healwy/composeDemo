@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.LeadingIconTab
@@ -26,14 +28,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
+import com.xuniyishifanchen.composedemo.ui.components.ArticleItem
 import com.xuniyishifanchen.composedemo.ui.components.NotificationContnet
 import com.xuniyishifanchen.composedemo.ui.components.SwipeContent
 import com.xuniyishifanchen.composedemo.ui.components.TopAppBar
+import com.xuniyishifanchen.composedemo.ui.components.VideoItem
+import com.xuniyishifanchen.composedemo.viewmodel.ArticleViewModel
 import com.xuniyishifanchen.composedemo.viewmodel.MainViewModel
+import com.xuniyishifanchen.composedemo.viewmodel.VideoViewModel
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun StudyPage(vm: MainViewModel = viewModel()) {
+fun StudyPage(
+    vm: MainViewModel = viewModel(),
+    articleVm: ArticleViewModel = viewModel(),
+    videoViewModel: VideoViewModel = viewModel()
+) {
     Column() {
         TopAppBar {
             Spacer(modifier = Modifier.width(10.dp))
@@ -116,9 +126,21 @@ fun StudyPage(vm: MainViewModel = viewModel()) {
                 )
             }
         }
-        SwipeContent(vm)
 
-        NotificationContnet(vm)
+        LazyColumn() {
+            item { SwipeContent(vm) }
+            item { NotificationContnet(vm) }
+            if (vm.dataTypeIndex == 0) {
+                items(articleVm.articles) {
+                    ArticleItem(articel = it)
+                }
+            } else {
+                items(videoViewModel.list) { videoEntity ->
+                    VideoItem(videoEntity)
+                }
+            }
+        }
+
     }
 }
 

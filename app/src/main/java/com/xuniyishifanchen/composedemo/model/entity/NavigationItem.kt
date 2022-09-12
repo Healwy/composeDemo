@@ -1,4 +1,4 @@
-package com.xuniyishifanchen.composedemo.model
+package com.xuniyishifanchen.composedemo.model.entity
 
 import androidx.compose.ui.graphics.vector.ImageVector
 
