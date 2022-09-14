@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,10 +14,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
@@ -76,12 +79,13 @@ fun TaskPage(taskVm: TaskViewModel = viewModel()) {
                     textAlign = TextAlign.Center
                 )
             }
-
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
+            }
             item {
                 Box(
                     modifier = Modifier
-                        .padding(top = 10.dp)
-                        .background(Color.Yellow),
+                        .padding(top = 10.dp),
                     contentAlignment = Alignment.Center
                 ) {
                     CircleRing(boxWidthDp, percent = taskVm.pointPercent)
@@ -103,40 +107,64 @@ fun TaskPage(taskVm: TaskViewModel = viewModel()) {
                         )
                         Text(text = "学年积分", fontSize = 12.sp, color = Color.White)
                     }
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .align(Alignment.BottomCenter),
+                        horizontalArrangement = Arrangement.SpaceAround
+                    ) {
+                        Column() {
+                            Text(
+                                text = "${taskVm.totalPoint}分",
+                                fontSize = 12.sp,
+                                color = Color.White,
+                            )
+                            Text(
+                                text = "学年规定积分", fontSize = 12.sp,
+                                color = Color.White,
+                            )
+                        }
+                        Column() {
+                            Text(
+                                text = "${taskVm.totalPoint - taskVm.point}分",
+                                fontSize = 12.sp,
+                                color = Color.White,
+                            )
+                            Text(
+                                text = "还差", fontSize = 12.sp,
+                                color = Color.White,
+                            )
+                        }
+                    }
                 }
             }
+
             item {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceAround
+                Spacer(modifier = Modifier.height(16.dp))
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(Color.White)
+                        .padding(horizontal = 8.dp)
                 ) {
-                    Column() {
-                        Text(
-                            text = "${taskVm.totalPoint}分",
-                            fontSize = 12.sp,
-                            color = Color.White,
-                        )
-                        Text(
-                            text = "学年规定积分", fontSize = 12.sp,
-                            color = Color.White,
-                        )
-                    }
-                    Column() {
-                        Text(
-                            text = "${taskVm.totalPoint - taskVm.point}分",
-                            fontSize = 12.sp,
-                            color = Color.White,
-                        )
-                        Text(
-                            text = "还差", fontSize = 12.sp,
-                            color = Color.White,
-                        )
-                    }
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        text = "学习明细",
+                        fontSize = 16.sp,
+                        color = Color(0xFF333333)
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = "最近一周获取积分情况",
+                        fontSize = 14.sp,
+                        color = Color(0xFF999999)
+                    )
                 }
             }
-
-
         }
+
 
     }
 }

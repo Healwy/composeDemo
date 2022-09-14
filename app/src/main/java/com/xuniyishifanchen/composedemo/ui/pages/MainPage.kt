@@ -36,7 +36,7 @@ fun MainPage() {
         NavigationItem("我的", Icons.Filled.Person),
     )
     var currentNavigationIndex by remember {
-        mutableStateOf(1)
+        mutableStateOf(0)
     }
 
     val systemUiController = rememberSystemUiController()
